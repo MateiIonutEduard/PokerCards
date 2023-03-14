@@ -1,0 +1,14 @@
+{
+  "name": "pokercards",
+  "version": "1.0.0",
+  "description": "Standard deck of 52 distinct cards used in poker.",
+  "main": "./bin/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matei Ionut-Eduard",
+  "license": "ISC",
+  "bin": {
+    "pokercards": "./bin/index.js"
+  }
+}
