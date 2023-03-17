@@ -1,23 +1,20 @@
 #!/usr/bin/env node
 const Card = require("./Card.js");
 const Deck = require("./Deck.js");
+const Hand = require("./Hand.js");
 
 let deck = new Deck();
 
 for(let i = 0; i < deck.cards.length; i++)
     console.log(deck.cards[i].getSuit() + " " + deck.cards[i].getRank() + "\n");
 
-let v = Array();
-let u = [ '10','K','A','J','Q' ];
+    let count = -1;
 
-for(let j = 0; j < 5; j++)
-{
-    let rankIndex = Card.findRankIndex(u[j]);
-    let suitIndex = Card.findSuitIndex(deck.cards[j].getSuit());
-
-    var c = new Card(rankIndex, suitIndex);
-    v.push(c);
+for(let j = 0; j < deck.cards.length; j += 5) {
+    let hand = new Hand();
+    hand.copyCards(deck.cards, j, 5);
+    console.log(hand.isFlush() ? hand.cards : hand.isFlush());
+    count++;
 }
 
-console.log(v);
-console.log(deck.isStraight(v));
+console.log(`total: ${count}`);

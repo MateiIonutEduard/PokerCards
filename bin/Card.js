@@ -20,7 +20,7 @@ class Card {
     }
 
     static getSuitsSize() {
-        return this.ranks.length;
+        return this.suits.length;
     }
 
     getRank() {

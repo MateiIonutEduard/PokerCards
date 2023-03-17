@@ -1,4 +1,5 @@
 const Card = require("./Card.js");
+const Hand = require("./Hand.js");
 
 class Deck {
     constructor() {
@@ -39,54 +40,10 @@ class Deck {
         }
     }
 
-    isFlush(cards) {
-        let suit = cards[0].getSuit();
-
-        for(let k = 1; k < cards.length; k++)
-        {
-            if(suit !== cards[k].getSuit())
-                return false;
-        }
-
-        return true;
-    }
-
-    isStraight(cards) {
-            if (cards.length > 1) {
-                // sort first
-                let index = Array();
-                
-                // initial indexing
-                for(let i = 0; i < cards.length; i++)
-                    index.push(i);
-
-                for(let i = 0; i < cards.length - 1; i++)
-                {
-                    for(let j = i + 1; j < cards.length; j++) {
-                        let ii = Card.findRankIndex(cards[index[i]].rank);
-                        let ij = Card.findRankIndex(cards[index[j]].rank);
-
-                        if(ii > ij)
-                        {
-                            let ti = index[i];
-                            index[i] = index[j];
-                            index[j] = ti;
-                        }
-                    }
-                }
-
-                // ready, check if rank of cards are consecutive...
-                let prevIndex = -1;
-
-                for(let i = 0; i < cards.length; i++) {
-                    let rankIndex = Card.findRankIndex(cards[index[i]].getRank());
-                    if(prevIndex == -1 || (prevIndex + 1) == rankIndex)
-                        prevIndex = rankIndex;
-                    else return false;
-                }
-
-            return true;
-        }
+    getHand(index, size) {
+        let hand = new Hand(size);
+        hand.copyCards(this.cards, index, size);
+        return hand;
     }
 }
 
