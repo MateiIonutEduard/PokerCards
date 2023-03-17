@@ -5,14 +5,17 @@ const Deck = require("./Deck.js");
 let deck = new Deck();
 
 for(let i = 0; i < deck.cards.length; i++)
-console.log(deck.cards[i].suit + " " + deck.cards[i].rank + "\n");
+    console.log(deck.cards[i].getSuit() + " " + deck.cards[i].getRank() + "\n");
 
 let v = Array();
 let u = [ '10','K','A','J','Q' ];
 
 for(let j = 0; j < 5; j++)
 {
-    var c = new Card(u[j], deck.cards[j].suit);
+    let rankIndex = Card.findRankIndex(u[j]);
+    let suitIndex = Card.findSuitIndex(deck.cards[j].getSuit());
+
+    var c = new Card(rankIndex, suitIndex);
     v.push(c);
 }
 

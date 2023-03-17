@@ -13,9 +13,6 @@ class Deck {
 
     shuffle() {
         this.cards = [];
-        let suits = ["Diamonds", "Hearts", "Clubs", "Spades"];
-        let ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-
         let index = new Array(52);
 
         for(let j = 0; j < 52; j++)
@@ -24,9 +21,9 @@ class Deck {
         let count = 52;
         let all = [];
 
-        for(let j = 0; j < suits.length; j++) {
-            for(let k = 0; k < ranks.length; k++) {
-                let card = new Card(ranks[k], suits[j]);
+        for(let j = 0; j < Card.getSuitsSize(); j++) {
+            for(let k = 0; k < Card.getRanksSize(); k++) {
+                let card = new Card(k, j);
                 all.push(card);
             }
         }
@@ -43,11 +40,11 @@ class Deck {
     }
 
     isFlush(cards) {
-        let suit = cards[0].suit;
+        let suit = cards[0].getSuit();
 
         for(let k = 1; k < cards.length; k++)
         {
-            if(suit !== cards[k].suit)
+            if(suit !== cards[k].getSuit())
                 return false;
         }
 
@@ -57,7 +54,6 @@ class Deck {
     isStraight(cards) {
             if (cards.length > 1) {
                 // sort first
-                let ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
                 let index = Array();
                 
                 // initial indexing
@@ -67,8 +63,8 @@ class Deck {
                 for(let i = 0; i < cards.length - 1; i++)
                 {
                     for(let j = i + 1; j < cards.length; j++) {
-                        let ii = ranks.indexOf(cards[index[i]].rank) + 1;
-                        let ij = ranks.indexOf(cards[index[j]].rank) + 1;
+                        let ii = Card.findRankIndex(cards[index[i]].rank);
+                        let ij = Card.findRankIndex(cards[index[j]].rank);
 
                         if(ii > ij)
                         {
@@ -80,12 +76,12 @@ class Deck {
                 }
 
                 // ready, check if rank of cards are consecutive...
-                let prev = -1;
+                let prevIndex = -1;
 
                 for(let i = 0; i < cards.length; i++) {
-                    let u = ranks.indexOf(cards[index[i]].rank);
-                    if(prev == -1 || (prev + 1) == u)
-                        prev = u;
+                    let rankIndex = Card.findRankIndex(cards[index[i]].getRank());
+                    if(prevIndex == -1 || (prevIndex + 1) == rankIndex)
+                        prevIndex = rankIndex;
                     else return false;
                 }
 
