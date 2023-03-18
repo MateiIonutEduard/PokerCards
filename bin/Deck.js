@@ -32,7 +32,7 @@ class Deck {
         while(count > 0) {
             let newIndex = this.#next(1, 52);
 
-            if(!index[newIndex]) {
+            if(!index[newIndex - 1]) {
                 this.cards.push(all[newIndex - 1]);
                 index[newIndex - 1] = true;
                 count--;

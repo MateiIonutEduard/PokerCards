@@ -5,12 +5,16 @@ class Hand {
         this.cards = [];
     }
 
-    copyCards(cards, index, size) {
+    copyCards(cards, index, size = 52) {
         let total = cards.length - index;
         let newSize = total < size ? total : size;
 
         for(let j = 0; j < newSize; j++)
             this.cards.push(cards[j]);
+    }
+
+    getCards() {
+        return this.cards;
     }
 
     isFlush() {

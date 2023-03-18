@@ -8,13 +8,21 @@ let deck = new Deck();
 for(let i = 0; i < deck.cards.length; i++)
     console.log(deck.cards[i].getSuit() + " " + deck.cards[i].getRank() + "\n");
 
-    let count = -1;
+let v = Array();
+let u = [ 'A', '5', '2', '3', '4' ];
 
-for(let j = 0; j < deck.cards.length; j += 5) {
-    let hand = new Hand();
-    hand.copyCards(deck.cards, j, 5);
-    console.log(hand.isFlush() ? hand.cards : hand.isFlush());
-    count++;
+for(let j = 0; j < 5; j++)
+{
+    let rankIndex = Card.findRankIndex(u[j]);
+    let suitIndex = Card.findSuitIndex(deck.cards[j].getSuit());
+
+    var c = new Card(rankIndex, suitIndex);
+    v.push(c);
 }
 
-console.log(`total: ${count}`);
+let hand = new Hand();
+hand.copyCards(v, 0);
+
+console.log(hand.isFlush());
+console.log(hand.isStraight());
+console.log(hand.getCards());
