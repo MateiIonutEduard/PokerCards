@@ -15,26 +15,24 @@ class Deck {
     shuffle() {
         this.cards = [];
         let index = new Array(52);
+        let count = 52;
 
         for(let j = 0; j < 52; j++)
             index[j] = false;
 
-        let count = 52;
-        let all = [];
-
-        for(let j = 0; j < Card.getSuitsSize(); j++) {
-            for(let k = 0; k < Card.getRanksSize(); k++) {
-                let card = new Card(k, j);
-                all.push(card);
-            }
-        }
-
         while(count > 0) {
-            let newIndex = this.#next(1, 52);
+            let newIndex = this.#next(1, 52) - 1;
+            let rankSize = Card.getRanksSize();
 
-            if(!index[newIndex - 1]) {
-                this.cards.push(all[newIndex - 1]);
-                index[newIndex - 1] = true;
+            /* optimize the card shuffling algorithm for the game deck */
+            let suitIndex = Math.floor(newIndex / rankSize);
+            let rankIndex = newIndex % rankSize;
+            let newCard = new Card(rankIndex, suitIndex);
+
+            /* the indexes of the suit and rank in the initial order are required to recover the real card */
+            if(!index[newIndex]) {
+                this.cards.push(newCard);
+                index[newIndex] = true;
                 count--;
             }
         }
